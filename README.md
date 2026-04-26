@@ -1,4 +1,4 @@
-# 🎪 Eventura — Event Management Application
+# 🎪 Eventix — Event Management Application
 
 A full-stack event management web application built with Node.js, Express, MongoDB, and vanilla JavaScript.
 

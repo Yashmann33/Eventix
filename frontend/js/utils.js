@@ -1,5 +1,5 @@
 // =============================================
-//  EVENTURA — Shared Utilities
+//  Eventix — Shared Utilities
 // =============================================
 
 const API_BASE = '/api';
@@ -115,7 +115,7 @@ function renderNavbar(activePage = '') {
   }
 
   navEl.innerHTML = `
-    <a href="index.html" class="brand">Eventura</a>
+    <a href="index.html" class="brand">Eventix</a>
     <ul class="nav-links">
       <li><a href="events.html" class="${activePage === 'events' ? 'active' : ''}">Events</a></li>
       ${isLoggedIn ? `<li><a href="dashboard.html" class="${activePage === 'dashboard' ? 'active' : ''}">Dashboard</a></li>` : ''}
