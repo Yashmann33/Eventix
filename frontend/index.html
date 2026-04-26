@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eventura — Where interests become friendships. Discover events, meet people, and build community.">
+  <title>Eventura — Where Interests Become Friendships</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>  <nav id="navbar">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#f65858"/>
+          <path d="M7 8h10M7 12h7M7 16h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Event<span>ura</span>
+      </a>
+      <div class="nav-search">
+        <input type="text" placeholder="Search events..." id="navSearchInput">
+        <div class="search-icon" onclick="window.location.href='events.html'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+      <div id="nav-actions" class="nav-right"></div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <!-- Left images -->
+        <div class="hero-images-left">
+          <img src="img/hero-left.png" alt="People at community event" class="float-slow" style="animation-delay: 0.2s;">
+          <div class="blob blob-pink" style="top: -20px; right: -10px; opacity: 0.6;"></div>
+          <div class="blob blob-orange" style="bottom: 30px; left: -20px; opacity: 0.5;"></div>
+        </div>
+
+        <!-- Center content -->
+        <div class="hero-center fade-in-up">
+          <h1>
+            The people platform.<br>
+            Where interests<br>
+            become <span class="gradient-text">friendships.</span>
+          </h1>
+          <p style="font-size: var(--fs-base); max-width: 600px;">Whatever your interest, from tech and music to hiking and cooking, there are thousands of events happening every day on Eventura. Find your next community today.</p>
+          <a href="events.html" class="btn btn-primary btn-lg">Explore Events</a>
+        </div>
+
+        <!-- Right images -->
+        <div class="hero-images-right">
+          <img src="img/hero-right.png" alt="People at speaking class" class="float-slow" style="animation-delay: 0.5s;">
+          <div class="blob blob-purple" style="top: 10px; left: -15px; opacity: 0.5;"></div>
+          <div class="blob blob-pink" style="bottom: -10px; right: -10px; opacity: 0.4;"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Upcoming Events Section -->
+  <section class="section-upcoming">
+    <div class="container">
+      <div class="section-header" style="justify-content: center; flex-direction: column; gap: 1rem; text-align: center; margin-bottom: 4rem;">
+        <h2 style="color: var(--primary); font-size: var(--fs-3xl); letter-spacing: -0.04em;">Upcoming online events</h2>
+      </div>
+      <div class="event-grid" id="upcomingEventsGrid">
+        <!-- Filled dynamically -->
+        <div style="text-align:center;padding:3rem;color:var(--text-muted);grid-column:1/-1;">
+          <p>Loading events...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar" style="border: none; padding: 5rem 0; margin: 4rem auto; max-width: 1000px;">
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--primary);">∞</div>
+      <div class="stat-label">Unlimited Events</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--primary);">100+</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--primary);">24/7</div>
+      <div class="stat-label">Always On</div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <section class="how-section" style="border: none;">
+    <div class="container">
+      <h2 style="text-align:center;font-size:2rem;letter-spacing:-0.03em; color: var(--primary);">How Eventura works</h2>
+      <p style="text-align:center;color:var(--text-muted);margin-top:0.75rem;">Discover, join, and create events in three simple steps.</p>
+      <div class="how-grid">
+        <div class="how-card fade-in-up">
+          <div class="step-num" style="background: var(--primary); color: white;">1</div>
+          <h3 style="color: var(--primary);">Join Eventura</h3>
+          <p>Sign up for free and tell us what you're interested in — we'll help you find your people.</p>
+        </div>
+        <div class="how-card fade-in-up" style="animation-delay:0.15s;">
+          <div class="step-num" style="background: var(--primary); color: white;">2</div>
+          <h3 style="color: var(--primary);">Find an event</h3>
+          <p>Browse events by category, search by keyword, or explore what's happening near you.</p>
+        </div>
+        <div class="how-card fade-in-up" style="animation-delay:0.3s;">
+          <div class="step-num" style="background: var(--primary); color: white;">3</div>
+          <h3 style="color: var(--primary);">Get together</h3>
+          <p>Register for events, get your digital ticket, and show up ready to make connections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" style="border: none;">
+    <div class="container">
+      <h2 style="color: var(--primary);">Ready to start something?</h2>
+      <p style="color: var(--text-muted);">Join millions of people using Eventura to meet new people, learn new things, and do what they love.</p>
+      <a href="login.html" class="btn btn-primary btn-lg" style="background:var(--primary); color: white;">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Clean Minimalist Spacer between Events and Footer -->
+  <div style="height: 4rem;"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand" style="font-size: 1.4rem; margin-bottom: 1rem; display: inline-flex;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#f65858"/><path d="M7 8h10M7 12h7M7 16h10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            Event<span>ura</span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem; line-height: 1.7;">Connect with people who share your interests. Events happen every day — join the fun.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="events.html">Explore Events</a>
+          <a href="register.html">Create Account</a>
+          <a href="login.html">Sign In</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="#">About Us</a>
+          <a href="#">Blog</a>
+          <a href="#">Help Center</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Eventura. All rights reserved.</span>
+        <span>Made with ❤️ for communities</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script>
+    // Redirect if logged in
+    if (Auth.isLoggedIn()) { window.location.href = 'dashboard.html'; }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Nav auth links
+      const navActions = document.getElementById('nav-actions');
+      if (Auth.isLoggedIn()) {
+        const user = Auth.getUser();
+        navActions.innerHTML = `
+          <a href="events.html">Events</a>
+          <a href="dashboard.html">Dashboard</a>
+          <button onclick="Auth.logout()" class="btn btn-outline btn-sm">Logout</button>
+        `;
+      } else {
+        navActions.innerHTML = `
+          <a href="events.html" class="btn btn-outline" style="border: 1px solid var(--primary); color: var(--primary); margin-right: 1rem; padding: 0.5rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center;">Explore</a>
+          <a href="login.html" class="btn btn-primary" style="background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center;">Get Started</a>
+        `;
+      }
+
+      // Load upcoming events
+      loadUpcomingEvents();
+
+      // Search redirect
+      const searchInput = document.getElementById('navSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            window.location.href = 'events.html?q=' + encodeURIComponent(searchInput.value);
+          }
+        });
+      }
+    });
+
+    async function loadUpcomingEvents() {
+      const grid = document.getElementById('upcomingEventsGrid');
+      try {
+        const events = await apiFetch('/events');
+        if (!events.length) {
+          grid.innerHTML = `
+            <div style="text-align:center;padding:4rem;color:var(--text-muted);grid-column:1/-1;">
+              <h3 style="color:var(--text-secondary);margin-bottom:0.5rem;">No events yet</h3>
+              <p>Be the first to create an event!</p>
+              <a href="register.html" class="btn btn-primary" style="margin-top:1rem;">Get Started</a>
+            </div>`;
+          return;
+        }
+        // Show up to 4 upcoming events
+        const upcoming = events.slice(0, 4);
+        grid.innerHTML = upcoming.map(e => renderEventCard(e)).join('');
+      } catch (err) {
+        grid.innerHTML = `
+          <div style="text-align:center;padding:4rem;color:var(--text-muted);grid-column:1/-1;">
+            <h3 style="color:var(--text-secondary);margin-bottom:0.5rem;">Discover events near you</h3>
+            <p>Sign up to browse and join amazing events in your area.</p>
+            <a href="register.html" class="btn btn-primary" style="margin-top:1rem;">Join Eventura</a>
+          </div>`;
+      }
+    }
+  </script>
+</body>
+</html>

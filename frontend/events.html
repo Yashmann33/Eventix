@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventura — Discover Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav id="navbar">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#f65858"/><path d="M7 8h10M7 12h7M7 16h10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        Event<span>ura</span>
+      </a>
+      <div class="nav-search">
+        <input type="text" placeholder="Search events..." id="navSearchInput">
+        <div class="search-icon" onclick="filterEvents()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+      <div id="nav-actions" class="nav-right"></div>
+    </div>
+  </nav>
+
+  <header class="discovery-hero">
+    <div class="container" style="position:relative;z-index:2;">
+      <h1 style="font-size: var(--fs-3xl); letter-spacing:-0.04em; margin-bottom:1.5rem;">Explore the <span class="gradient-text">Extraordinary</span></h1>
+      <p style="font-size: var(--fs-base); color:var(--text-secondary); max-width:600px; margin:0 auto; line-height: 1.8;">Discover events that inspire, connect, and transform. Find your next adventure today.</p>
+    </div>
+  </header>
+  <main class="container">
+    <div class="search-bar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5" style="margin-left:1rem;flex-shrink:0;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search events by name, category..." oninput="filterEvents()">
+      <button class="btn btn-primary btn-sm" style="border-radius:50px;" onclick="filterEvents()">Search</button>
+    </div>
+    <div class="categories-bar">
+      <div class="pill active" onclick="setPill(this,'')">All</div>
+      <div class="pill" onclick="setPill(this,'Music')">🎵 Music</div>
+      <div class="pill" onclick="setPill(this,'Tech')">💻 Tech</div>
+      <div class="pill" onclick="setPill(this,'Sports')">⚽ Sports</div>
+      <div class="pill" onclick="setPill(this,'Art')">🎨 Art</div>
+      <div class="pill" onclick="setPill(this,'Food')">🍕 Food</div>
+      <div class="pill" onclick="setPill(this,'Business')">💼 Business</div>
+      <div class="pill" onclick="setPill(this,'Education')">📚 Education</div>
+      <div class="pill" onclick="setPill(this,'Health')">🏃 Health</div>
+    </div>
+    <div id="eventGrid" class="event-grid" style="margin-bottom:4rem;"></div>
+    <div id="emptyState" class="hidden" style="text-align:center;padding:5rem 0;">
+      <div style="width:64px;height:64px;background:var(--bg-elevated);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </div>
+      <h3 style="color:var(--text-secondary);">No events found</h3>
+      <p style="color:var(--text-muted);margin:0.5rem 0 1.5rem;">Try adjusting your filters or search terms.</p>
+      <button class="btn btn-outline btn-sm" onclick="resetFilters()">Clear filters</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" style="margin-top:2rem;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;margin-top:0;padding-top:0;">
+        <span>© 2026 Eventura. All rights reserved.</span>
+        <span>Made with ❤️ for communities</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script>
+    // Nav auth
+    document.addEventListener('DOMContentLoaded', () => {
+      const navActions = document.getElementById('nav-actions');
+      if (Auth.isLoggedIn()) {
+        navActions.innerHTML = `<a href="events.html">Events</a><a href="dashboard.html">Dashboard</a><button onclick="Auth.logout()" class="btn btn-outline btn-sm">Logout</button>`;
+      } else {
+        navActions.innerHTML = `<a href="login.html">Log in</a><a href="register.html" class="btn-signup">Sign up</a>`;
+      }
+
+      // Check URL for search query
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('q');
+      if (q) document.getElementById('searchInput').value = q;
+    });
+
+    let allEvents = [], activeCategory = '';
+    document.addEventListener('DOMContentLoaded', async () => { try { allEvents = await apiFetch('/events'); renderEvents(allEvents); } catch(e){ renderEvents([]); } });
+    function setPill(el, cat) { document.querySelectorAll('.pill').forEach(p => p.classList.remove('active')); el.classList.add('active'); activeCategory = cat; filterEvents(); }
+    function filterEvents() {
+      const s = document.getElementById('searchInput').value.toLowerCase();
+      renderEvents(allEvents.filter(e => ((e.title || '').toLowerCase().includes(s)) && (activeCategory === '' || e.category === activeCategory)));
+    }
+    function renderEvents(events) {
+      const g = document.getElementById('eventGrid'), em = document.getElementById('emptyState');
+      if (!events.length) { g.innerHTML = ''; em.classList.remove('hidden'); return; }
+      em.classList.add('hidden');
+      g.innerHTML = events.map(e => renderEventCard(e)).join('');
+    }
+    function resetFilters() { document.getElementById('searchInput').value = ''; activeCategory = ''; document.querySelectorAll('.pill').forEach(p => p.classList.remove('active')); document.querySelector('.pill').classList.add('active'); renderEvents(allEvents); }
+  </script>
+</body>
+</html>

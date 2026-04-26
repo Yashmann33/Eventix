@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventura — Sign In</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="split-layout">
+    <div class="split-info">
+      <a href="index.html" class="btn-back" style="position:absolute;top:2rem;left:2rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Home
+      </a>
+      <div style="position:relative;z-index:2;">
+        <a href="index.html" class="brand" style="font-size:1.6rem;margin-bottom:3rem;display:inline-flex;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#f65858"/><path d="M7 8h10M7 12h7M7 16h10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          Event<span>ura</span>
+        </a>
+        <h2 style="font-size: 2.75rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-top: 2rem;">Welcome<br>back. 👋</h2>
+        <p style="margin-top: 1.5rem; font-size: 1rem; color: var(--text-secondary); line-height: 1.8;">Access your dashboard, manage events, and track your digital tickets — all in one place.</p>
+        <div style="margin-top: 3rem; display: flex; gap: 2rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:600;color:var(--text-secondary);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+            Secured
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:600;color:var(--text-secondary);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Verified
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="split-form">
+      <div style="max-width: 380px; width: 100%; margin: 0 auto;">
+        <div class="mb-8">
+          <h1 style="font-size: 2rem; letter-spacing: -0.02em;">Sign in</h1>
+          <p style="color: var(--text-muted); font-weight: 500; margin-top: 0.5rem;">Access your event dashboard</p>
+        </div>
+        <div id="alertContainer"></div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email address</label>
+          <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+          <div style="text-align:right;margin-top:0.4rem;"><a href="forgot-password.html" style="color:var(--primary);font-size:0.8rem;font-weight:600;text-decoration:none;">Forgot password?</a></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:0.9rem;margin-top:0.75rem;font-size:1rem;" id="loginBtn" onclick="doLogin()">Sign in</button>
+        <p class="mt-4 text-center" style="color:var(--text-muted);font-size:0.85rem;">Don't have an account? <a href="register.html" style="color:var(--primary);font-weight:700;text-decoration:none;">Create one</a></p>
+      </div>
+    </div>
+  </div>
+  <script src="js/utils.js"></script>
+  <script>
+    if (Auth.isLoggedIn()) window.location.href = 'dashboard.html';
+    async function doLogin() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+      if (!email || !password) return showAlert('#alertContainer', 'Please enter both email and password.', 'error');
+      btn.disabled = true; btn.textContent = 'Signing in...';
+      try {
+        const data = await apiFetch('/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+        Auth.setSession(data.token, data.user);
+        window.location.href = 'dashboard.html';
+      } catch (err) { showAlert('#alertContainer', err.message, 'error'); }
+      finally { btn.disabled = false; btn.textContent = 'Sign in'; }
+    }
+  </script>
+</body>
+</html>
